@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DaliaAI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .hero {
+            background: url('./ai_bg.jpeg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 12rem;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInScale 2s ease forwards;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .nav {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 1rem 2rem;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .section {
+            padding: 4rem 20rem;
+            text-align: center;
+			font-size: 1.2rem;
+			text-align: justify;
+			text-justify: inter-word;
+        }
+
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video {
+            width: 80%;
+            border-radius: 8px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .roadmap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 4rem;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .roadmap.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 1s ease-in-out;
+        }
+
+        .roadmap .phase {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #007bff, #6610f2);
+            color: white;
+            border-radius: 12px;
+            font-size: 1.8rem;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .roadmap .phase span {
+            display: inline-block;
+            margin-left: 1rem;
+        }
+
+        .footer {
+            background: #f4f4f4;
+            padding: 2rem;
+            color: #333;
+            text-align: center;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const roadmap = document.querySelector('.roadmap');
+            const phases = document.querySelectorAll('.roadmap .phase');
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        roadmap.classList.add('visible');
+                        phases.forEach((phase, index) => {
+                            setTimeout(() => {
+                                phase.style.opacity = 1;
+                                phase.style.transform = 'translateY(0)';
+                            }, index * 500);
+                        });
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            phases.forEach(phase => {
+                phase.style.opacity = 0;
+                phase.style.transform = 'translateY(50px)';
+                phase.style.transition = 'all 0.5s ease';
+            });
+
+            observer.observe(roadmap);
+        });
+    </script>
+</head>
+<body>
+    <div class="hero">
+        <div class="nav">
+            <a href="https://t.me/+jCuv-iHMq-g0MmMx">Telegram</a>
+            <a href="https://x.com/daliaai_sol">Twitter</a>
+            <a href="#">Coin</a>
+        </div>
+        <h1>Dalia AI</h1>
+        <h3>Empowering Crypto Innovation with Intelligent AI Agents.</h3>
+		<h3>Coin Address: Coming soon...</h3>
+    </div>
+
+    <div class="section video-container">
+        <h2>Demo</h2>
+        <p>Watch this demo to see our technology in action.</p>
+        <video controls>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+	
+    <div class="section">
+		<h1>About this Project:</h1>
+		<br>
+        <h2>Agentic AI Search</h2>
+        <p>Imagine a search technology that doesn't just fetch links but truly understands your questions and intentions. Powered by advanced AI, this revolutionary tool interprets your queries with human-like comprehension, breaking down complex requests into actionable insights. It doesn't stop at understanding; it proactively plans solutions, seamlessly gathers the most relevant data, and returns results in clear, natural language. Whether you're a professional seeking detailed analysis or a casual user looking for precise answers, Agentic AI Search redefines how information meets intent, transforming the way you search, decide, and act.</p>
+		<br>
+		<h2>Token Recommendations</h2>
+        <p>Discover the power of Agentic AI Coin Explorer, the ultimate tool for crypto enthusiasts and investors. Simply provide a crypto token or coin, and let our intelligent AI agent do the rest. Leveraging cutting-edge graph neural networks, it analyzes blockchain data to identify similar coins with remarkable precision, computing a comprehensive similarity score. With tailored recommendations delivered in an instant, you’ll gain actionable insights into alternative tokens, investment opportunities, and trends. Whether you're optimizing your portfolio or exploring new projects, Agentic AI Coin Explorer empowers you to make informed decisions with confidence.</p>
+    </div>
+
+
+    <div class="section roadmap">
+		<h1>Roadmap:</h1>
+        <div class="phase">
+            <span>Open-Source Code Release, 2025-01-31</span>
+        </div>
+        <div class="phase">
+            <span>Public Web-App Launch, 2025-02-28</span>
+        </div>
+        <div class="phase">
+            <span>ETH Blockchain Integration, 2025-03-31</span>
+        </div>
+        <div class="phase">
+            <span>Dalia Foundation Launch, 2025-04-31</span>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>For more details about DaliaAI project, join our Telegram.</p>
+    </div>
+</body>
+</html>
