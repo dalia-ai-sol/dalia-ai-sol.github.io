@@ -30,17 +30,18 @@
             color: white;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
             text-align: center;
+            padding: 1rem;
         }
 
         .hero h1 {
-            font-size: 12rem;
+            font-size: 6rem;
             opacity: 0;
             transform: scale(0.8);
             animation: fadeInScale 2s ease forwards;
         }
 
         .hero h2 {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             opacity: 0;
             transform: scale(0.8);
             animation: fadeInScale 2s ease forwards;
@@ -58,7 +59,7 @@
         }
 
         .hero p {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             margin-top: 1rem;
         }
 
@@ -68,22 +69,21 @@
             width: 100%;
             display: flex;
             justify-content: flex-end;
-            padding: 1rem 2rem;
+            padding: 1rem;
+            gap: 1rem;
         }
 
         .nav a {
             color: white;
             text-decoration: none;
-            margin-left: 1.5rem;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
 
         .section {
-            padding: 4rem 20rem;
+            padding: 2rem 1rem;
             text-align: center;
-			font-size: 1.2rem;
-			text-align: justify;
-			text-justify: inter-word;
+            font-size: 1rem;
+            text-align: justify;
         }
 
         .video-container {
@@ -94,7 +94,8 @@
         }
 
         video {
-            width: 80%;
+            width: 100%;
+            max-width: 600px;
             border-radius: 8px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
         }
@@ -103,7 +104,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 4rem;
+            margin-top: 2rem;
             opacity: 0;
             transform: translateY(50px);
         }
@@ -118,13 +119,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 80%;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            width: 90%;
+            max-width: 500px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
             background: linear-gradient(135deg, #007bff, #6610f2);
             color: white;
             border-radius: 12px;
-            font-size: 1.8rem;
+            font-size: 1.2rem;
             box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
         }
 
@@ -135,21 +137,55 @@
 
         .footer {
             background: #f4f4f4;
-            padding: 2rem;
+            padding: 1rem;
             color: #333;
             text-align: center;
-        }
-
-        #video_demo{
-            width : 1000px;
         }
 
         #container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 4rem;
-            height : 800px;
+            margin-top: 2rem;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 8rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 4rem 10rem;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 {
+                font-size: 12rem;
+            }
+
+            .section {
+                padding: 4rem 20rem;
+            }
+
+            .roadmap .phase {
+                font-size: 1.5rem;
+            }
+
+            iframe {
+                height: 400px;
+            }
         }
     </style>
     <script>
@@ -201,14 +237,11 @@
     <div class="section video-container">
         <h2>Demo Preview:</h2>
         <p>Watch this demo preview to see our technology in action.</p>
-        <div style="position:relative; width: 100%; height: 0; padding-bottom: 56.25%; overflow: hidden;">
-            <iframe src="https://player.vimeo.com/video/1048043350?h=bd3d4b877d&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
-                    frameborder="0" 
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" 
-                    style="position:absolute; top:0; left:0; width:100%; height:100%;" 
-                    title="Dalia AI Demo">
-            </iframe>
-        </div>
+        <iframe src="https://player.vimeo.com/video/1048043350?h=bd3d4b877d&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                frameborder="0" 
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" 
+                title="Dalia AI Demo">
+        </iframe>
         <script src="https://player.vimeo.com/api/player.js"></script>
     </div>
 
@@ -267,7 +300,7 @@
     <div class="section roadmap">
 		<h1>Roadmap:</h1>
         <div class="phase">
-            <span>Open-Source Code Release, 2025-01-19</span>
+            <span>Open-Source Code, 2025-01-19</span>
         </div>
         <div class="phase">
             <span>Public Web-App Launch, 2025-02-28</span>
