@@ -1,288 +1,442 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <title>DaliaAI</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dalia AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    *,:after,:before {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body, html {
-            height: 100%;
-            font-family: 'Arial', sans-serif;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
+    body {
+      font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+      background-color: #f9fafb;
+      color: #171717;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .hero {
-            background: url('./ai_bg.jpeg') no-repeat center center/cover;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-            text-align: center;
-            width: 100%; /* Ensure background covers full width */
-        }
+    .banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: #3b3f4f;
+      color: white;
+      width: 100%;
+    }
 
-        .hero h1 {
-            font-size: 12rem;
-            opacity: 0;
-            transform: scale(0.8);
-            animation: fadeInScale 2s ease forwards;
-        }
+    .banner .links a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+    }
 
-        .hero h2 {
-            font-size: 1.75rem;
-            opacity: 0;
-            transform: scale(0.8);
-            animation: fadeInScale 2s ease forwards;
-        }
+    .banner .socials a {
+      margin: 0 10px;
+      color: white;
+      font-size: 1.5rem;
+    }
 
-        @keyframes fadeInScale {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
 
-        .hero p {
-            font-size: 1.5rem;
-            margin-top: 1rem;
-        }
 
-        .nav {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: flex-end;
-            padding: 1rem 2rem;
-        }
+    /* Global section style */
+    section {
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+    }
 
-        .nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-size: 1.2rem;
-        }
+    #section1 {
+      background: url('./bg.jpg') center center no-repeat;
+      background-size: cover;
+      color: white;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    }
 
-        .section {
-            padding: 4rem 2rem;
-            text-align: center;
-            font-size: 1.2rem;
-            text-align: justify;
-            text-justify: inter-word;
-        }
+    #section1 h1 {
+      font-size: 8rem;
+    }
 
-        .video-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+    #section1 h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
 
-        video {
-            width: 80%;
-            border-radius: 8px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
-        }
+    #section1 p {
+      font-size: 1.2rem;
+    }
 
-        .roadmap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 4rem;
-            opacity: 0;
-            transform: translateY(50px);
-        }
+    .product-box {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+	  min-height:300px
+    }
+    .product-box:hover {
+      transform: scale(1.05); 
+    }
 
-        .roadmap.visible {
-            opacity: 1;
-            transform: translateY(0);
-            transition: all 1s ease-in-out;
-        }
+    #section5 {
+      background-color: #eef2ff;
+    }
 
-        .roadmap .phase {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 90%; /* Adjust width for better text wrapping */
-            max-width: 700px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, #007bff, #6610f2);
-            color: white;
-            border-radius: 12px;
-            font-size: 1.2rem; /* Reduced font size for better fit */
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
+    .roadmap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      position: relative;
+      margin-top: 40px;
+      padding: 20px 0;
+    }
 
-        .roadmap .phase span {
-            display: inline-block;
-            margin-left: 1rem;
-        }
+    .roadmap::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      right: 5%;
+      height: 4px;
+      background: #6c63ff;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
 
-        .footer {
-            background: #f4f4f4;
-            padding: 2rem;
-            color: #333;
-            text-align: center;
-        }
+    .bubble {
+      background: white;
+      border: 2px solid #6c63ff;
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 2;
+      margin: 20px;
+    }
 
-        #video_demo{
-            width: 100%;
-        }
+	.bubble:hover {
+      transform: scale(1.15); 
+    }
 
-        #container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 4rem;
-            height: auto; /* Adjust height for better responsiveness */
-        }
-    </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const roadmap = document.querySelector('.roadmap');
-            const phases = document.querySelectorAll('.roadmap .phase');
+    .bubble h4 {
+      font-size: 1rem;
+      margin: 5px 0;
+      color: #6c63ff;
+    }
 
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        roadmap.classList.add('visible');
-                        phases.forEach((phase, index) => {
-                            setTimeout(() => {
-                                phase.style.opacity = 1;
-                                phase.style.transform = 'translateY(0)';
-                            }, index * 500);
-                        });
-                    }
-                });
-            }, { threshold: 0.1 });
+    .bubble p {
+      font-size: 0.8rem;
+      color: #555;
+      text-align: center;
+      margin: 0;
+      padding: 0 10px;
+    }
 
-            phases.forEach(phase => {
-                phase.style.opacity = 0;
-                phase.style.transform = 'translateY(50px)';
-                phase.style.transition = 'all 0.5s ease';
-            });
+    .team-member {
+      text-align: center;
+      margin: 0px;
+    }
 
-            observer.observe(roadmap);
-        });
-    </script>
+    .team-member img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      background: #3b3f4f;
+      color: white;
+      padding: 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    footer .socials a {
+      margin: 0 10px;
+      color: white;
+      font-size: 1.5rem;
+      text-decoration: none;
+    }
+
+    #product_section {
+      width: 100%;
+    }
+
+    /* Override section styling for products to prevent overlap */
+    #section2 {
+      height: auto !important;
+      display: block !important;
+	  margin-bottom:50px;
+	  margin-top:50px;
+    }
+
+	#vision_img{
+		border-radius: 20px;
+	}
+
+	.vision_text_area{
+		padding: 40px;
+	}
+
+	#section6{
+		font-size: 1.1rem;
+		text-align: center;
+	}
+
+	#section4{
+		font-size: 1.1rem;
+		text-align: justify;
+		text-justify: inter-word;
+	}
+
+	#demo_section{
+		width:100%
+	}
+
+	#promp_section{
+		width:100%;
+	}
+
+	.demo_video_holder{
+		height: 500px;
+	}
+
+	#section5{
+		font-size: 1.1rem;
+	}
+
+	#section3{
+		background-color: #fde1a9;
+		font-size: 1.1rem;
+	}
+
+  </style>
+  <script>
+    // Ensure the page loads at the top
+    window.addEventListener('load', () => {
+      window.scrollTo(0, 0);
+    });
+  </script>
 </head>
 <body>
-    <div class="hero">
-        <div class="nav">
-            <a href="https://t.me/daliaAIsol">Telegram</a>
-            <a href="https://x.com/Sol_Dalia_ai">Twitter</a>
-            <a href="https://bullx.io/terminal?chainId=1399811149&address=58rgyRczbaWvcXbG4iZYuxWoQJbufhagMMkDDMD8pump">Coin</a>
-            <a href="https://github.com/dalia-ai-sol/dalia-ai-sdk">GitHub</a>
-        </div>
-        <h1>Dalia AI</h1>
-        <h3>Empowering Crypto Innovation with Intelligent AI Agents.</h3>
-		<h3>Coin Address: 58rgyRczbaWvcXbG4iZYuxWoQJbufhagMMkDDMD8pump</h3>
-        <br>
-        <h2>Own 1,000,000 Dalia AI tokens for early access to AI web-app and terminal.</h2>
-        <br>
-        <h2>Dalia AI on Telegram (Watch the Demo Now)</h2>
+  <div class="banner">
+    <div class="links">
+      <a href="#section1">Home</a>
+      <a href="#section2">Products</a>
+      <a href="#section3">Demos</a>
+      <a href="#section4">Vision</a>
+      <a href="#section5">Roadmap</a>
+      <a href="#section6">Team</a>
     </div>
-
-    <div class="section video-container">
-        <h2>Demo Preview:</h2>
-        <p>Watch this demo preview to see our technology in action.</p>
-        <div style="position:relative; width: 100%; height: 0; padding-bottom: 56.25%; overflow: hidden;">
-            <iframe src="https://player.vimeo.com/video/1049834176?h=befd61e47e&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
-                    frameborder="0" 
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" 
-                    style="position:absolute; top:0; left:0; width:100%; height:100%;" 
-                    title="Dalia AI Demo">
-            </iframe>
-        </div>
-        <script src="https://player.vimeo.com/api/player.js"></script>
+    <div class="socials">
+      <a href="https://x.com/Sol_Dalia_ai"><i class="fab fa-twitter"></i></a>
+      <a href="https://t.me/daliaAIsol"><i class="fab fa-telegram"></i></a>
+      <a href="https://bullx.io/terminal?chainId=1399811149&address=58rgyRczbaWvcXbG4iZYuxWoQJbufhagMMkDDMD8pump"><i class="fas fa-globe"></i></a>
+      <a href="https://github.com/dalia-ai-sol/dalia-ai-sdk"><i class="fab fa-github"></i></a>
     </div>
+  </div>
 
-	
-    <div class="section">
-		<h1>About this Project:</h1>
-		<br>
-        <h2>Agentic AI Search</h2>
-        <p>Imagine a search technology that doesn't just fetch links but truly understands your questions and intentions. Powered by advanced AI, this revolutionary tool interprets your queries with human-like comprehension, breaking down complex requests into actionable insights. It doesn't stop at understanding; it proactively plans solutions, seamlessly gathers the most relevant data, and returns results in clear, natural language. Whether you're a professional seeking detailed analysis or a casual user looking for precise answers, Agentic AI Search redefines how information meets intent, transforming the way you search, decide, and act.</p>
-		<br>
-		<h2>Token Recommendations</h2>
-        <p>Discover the power of Agentic AI Coin Explorer, the ultimate tool for crypto enthusiasts and investors. Simply provide a crypto token or coin, and let our intelligent AI agent do the rest. Leveraging cutting-edge graph neural networks, it analyzes blockchain data to identify similar coins with remarkable precision, computing a comprehensive similarity score. With tailored recommendations delivered in an instant, you’ll gain actionable insights into alternative tokens, investment opportunities, and trends. Whether you're optimizing your portfolio or exploring new projects, Agentic AI Coin Explorer empowers you to make informed decisions with confidence.</p>
-        <br>
-        <h2>Dalia AI Distribution by Group:</h2>
-        <div id="container"></div>
-        <br>
-        <h2>Roadmap:</h2>
+  <section id="section1">
+    <div>
+      <h1>Dalia AI</h1>
+      <h2>Empowering Crypto Innovation with Intelligent AI Agents</h2>
+      <p>CA: 58rgyRczbaWvcXbG4iZYuxWoQJbufhagMMkDDMD8pump</p>
     </div>
+  </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            Highcharts.chart('container', {
-                chart: {
-                    type: 'pie'
-                },
-                title: {
-                    text: ''
-                },
-                accessibility: {
-                    point: {
-                        valueSuffix: '%'
-                    }
-                },
-                plotOptions: {
-                    pie: {
-                        innerSize: '50%',
-                        dataLabels: {
-                            enabled: true
-                        }
-                    }
-                },
-                series: [{
-                    name: 'Share',
-                    data: [
-                        { name: 'Dev-Locked (3.5%)', y: 3.5 },
-                        { name: 'Team (30%)', y: 30 },
-                        { name: 'Community and Liquidity (66.5%)', y: 66.5 }
-                    ]
-                }]
-            });
-        });
-    </script>
-
-    <div class="section roadmap">
-        <div class="phase">
-            <span>Open-Source Code Release: 2025-01-19</span>
+  <section id="section2">
+    <div id="product_section">
+      <h2>Products</h2>
+      <p>Explore various innovative products by Dalia AI. We build products with our community in mind and technology that actually bring value.</p>
+      <div class="container">
+        <!-- Using row g-4 for spacing -->
+        <div class="row">
+          <div class="col-md-3 col-sm-6">
+			<div class="product-box">
+				<h4>Dalia AI Telegram Bot</h4>
+				<p>Perform real-time token analysis and research, combining token statistics, socials, historical and live market data and more with Dalia AI powered conversational Telegram AI bot. Ask it to analyze a token by providing token CA.</p>
+				<i class="fa-solid fa-robot fa-2xl"></i>
+			</div>
+		  </div>
+          <div class="col-md-3 col-sm-6">
+			<div class="product-box">
+				<h4>Dalia AI Twitter Analyst</h4>
+				<p>Dalia AI powered Twitter analyst provides real-time and automated in-depth analysis of hot/new tokens. The AI bot scans the market and Twitter for newly launched token and provides in-depth analysis of the token and its recommendations right on Twitter.</p>
+				<i class="fa-brands fa-twitter fa-2xl"></i>
+			</div>
+		  </div>
+          <div class="col-md-3 col-sm-6">
+			<div class="product-box">
+				<h4>Dalia AI Recommendation Engine</h4>
+				<p>Dalia AI uses the power of Graph Neural Networks to find and recommend tokens similar to each user's holdings. Discover new and exciting tokens.</p>
+				<i class="fa-solid fa-network-wired fa-2xl"></i>
+			</div>
+		  </div>
+          <div class="col-md-3 col-sm-6">
+			<div class="product-box">
+				<h4>Dalia AI Python SDK</h4>
+				<p>Good news for developers, Dalai AI is open-sourced and free to use with step-by-step setup and configuration instructions. Clone our Python SDK repository from GitHub and build your own token analyzer. Checkout GitHub for more details.</p>
+				<i class="fa-brands fa-python fa-2xl"></i>
+			</div>
+		  </div>
         </div>
-        <div class="phase">
-            <span>Telegram AI Bot Launch: 2025-01-25</span>
-        </div>
-        <div class="phase">
-            <span>Twitter (X) AI Bot Launch: 2025-01-28</span>
-        </div>
-        <div class="phase">
-            <span>Advanced Feature Launch for All Our Bot: 2025-01-30</span>
-        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="footer">
-        <p>For more details about DaliaAI project, join our Telegram.</p>
+
+  <section id="section3_a">
+    <div id="promp_section">
+      <h2>Promo Video</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 demo_video_holder">
+			<iframe src="https://player.vimeo.com/video/1050953601?h=9d5033c9a5&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+			frameborder="0" 
+			allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" 
+			style="width:100%; height:100%;" 
+			title="Dalia AI Demo">
+			</iframe>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <section id="section3">
+    <div id="demo_section">
+      <h2>Demos</h2>
+      <p>A demo of a sleek, AI-powered Telegram bot, seamlessly interacting with users through natural language. In the video, the bot is prompted to analyze a specific crypto token, instantly pulling live market data, aggregating trends from news sources, and extracting real-time sentiment from social media chatter. Within seconds, the bot provides a concise, actionable analysis, including performance metrics, key market movements, and potential risks. But it doesn’t stop there—it offers tailored recommendations, outlining strategic moves based on current conditions, whether it’s a buy, sell, or hold. This isn’t just a glimpse into what’s possible; it’s a demonstration of how AI, data, and conversation can harmonize to empower users to make smarter, faster decisions in the ever-evolving world of crypto. The demo showcases Dalia AI’s commitment to blending cutting-edge technology with practical utility, turning insights into opportunities with the ease of a conversation..</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 demo_video_holder">
+			<iframe src="https://player.vimeo.com/video/1049834176?h=befd61e47e&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+			frameborder="0" 
+			allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" 
+			style="width:100%; height:100%;" 
+			title="Dalia AI Demo">
+			</iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="section4">
+    <div>
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <img src="./vision.avif" alt="Our Vision" id="vision_img" class="img-fluid">
+        </div>
+        <div class="col-md-6 vision_text_area">
+          <h2>Our Vision</h2>
+          <p>At Dalia AI, we envision a world where the chaos of the crypto market transforms into boundless opportunity through the power of real-time intelligence and conversational AI. By seamlessly integrating live market data, breaking news, and the pulse of social sentiment into a unified, cutting-edge analytical system, we empower users to stay ahead in the ever-shifting crypto landscape. Our platform doesn’t just analyze—it understands, interprets, and acts, blending the precision of advanced market modeling with the fluidity of an agentic AI built for seamless Telegram integration. With Dalia AI, your investment decisions transcend intuition, becoming guided by a symphony of data streams woven into actionable insights at your fingertips.
+
+			This isn’t just AI—it’s your personal crypto strategist, market whisperer, and execution partner, all rolled into one. Our vision is to make navigating the complexities of Web3 feel intuitive, empowering users to act with confidence and agility in a world where seconds can mean the difference between fortune and failure. Dalia AI is more than a platform—it’s a revolution in how we approach market intelligence, harnessing the convergence of conversational AI and real-time analytics to redefine how investors engage, strategize, and thrive in the fast-paced world of cryptocurrency. Welcome to the future of crypto intelligence. Welcome to Dalia AI.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="section5">
+    <div>
+      <h2>Roadmap</h2>
+	  <p>At Dalia AI, we are committed to relentless innovation, continuously pushing the boundaries of what’s possible in crypto intelligence and conversational AI. Our team is deeply focused on building transformative technology while maintaining a community-driven approach that ensures every feature we release resonates with real-world needs. Through periodic feature rollouts, we provide our users with cutting-edge tools that enhance their decision-making, all while gathering valuable feedback to refine and optimize our offerings. By fostering a culture of experimentation and testing, we remain agile, adaptable, and at the forefront of technological advancements. At Dalia AI, innovation isn’t just a goal—it’s our ethos, and every release is a testament to our dedication to delivering meaningful value to our growing community.</p>
+      <div class="roadmap">
+        <div class="bubble">
+          <h4>Jan 19th</h4>
+          <p>Dalia Coin Launch</p>
+        </div>
+        <div class="bubble">
+          <h4>Jan 20th</h4>
+          <p>Open-Source Python SDK</p>
+        </div>
+        <div class="bubble">
+          <h4>Jan 21th</h4>
+          <p>Integration with news and market data</p>
+        </div>
+        <div class="bubble">
+          <h4>Jan 23th</h4>
+          <p>Integration with Twitter data</p>
+        </div>
+        <div class="bubble">
+          <h4>Jan 25th</h4>
+          <p>Telegram AI bot test launch.</p>
+        </div>
+        <div class="bubble">
+          <h4>Jan 26th</h4>
+          <p>Telegram AI bot V1 release</p>
+        </div>
+        <div class="bubble">
+          <h4>Jan 27th</h4>
+          <p>Website redesign</p>
+        </div>
+        <div class="bubble">
+          <h4>Jan 28th</h4>
+          <p>Twitter AI analyst launch</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="section6">
+    <div>
+      <h2>Meet the Team</h2>
+	  <p>Our team is composed to seasoned crypto and AI experts, with over 15 years of experience combined.</p>
+	  <p>Our team's previous project was <b>Pepe The King Prawn</b>, which hit all-time hight market cap of 40 million dollars</p>
+      <div class="row">
+        <div class="col-md-4 team-member">
+          <img src="./MD.jpg" alt="Team Member 1">
+		  <h4>Max D</h4> 
+		  <p>AI/Tech Developer</p>
+          <a href="https://x.com/TARS_the_ai_dev"><i class="fab fa-twitter"></i></a>
+        </div>
+        <div class="col-md-4 team-member">
+          <img src="./Rusty.jpg" alt="Team Member 2">
+          <h4>Rusty</h4>
+		  <p>Marketing Expert [Prawn Dev]</p>
+          <a href="https://x.com/PrawnDev"><i class="fab fa-twitter"></i></a>
+        </div>
+        <div class="col-md-4 team-member">
+          <img src="./AD.jpg" alt="Team Member 3">
+          <h4>AD</h4>
+		  <p>Business Development</p>
+          <a href="https://x.com/Sol_Dalia_ai"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <p>&copy; 2025 Dalia AI. All rights reserved.</p>
+      <div class="socials">
+        <a href="https://x.com/Sol_Dalia_ai"><i class="fab fa-twitter"></i></a>
+        <a href="https://t.me/daliaAIsol"><i class="fab fa-telegram"></i></a>
+        <a href="https://bullx.io/terminal?chainId=1399811149&address=58rgyRczbaWvcXbG4iZYuxWoQJbufhagMMkDDMD8pump"><i class="fas fa-globe"></i></a>
+        <a href="https://github.com/dalia-ai-sol/dalia-ai-sdk"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
